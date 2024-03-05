@@ -7,7 +7,13 @@ set(ALL_SRC main.cpp
             bagua_round.cpp
             bagua_round.h
             oval_seal.cpp
-            oval_seal.h)
+            oval_seal.h
+            hourglass.cpp
+            hourglass.h
+            speedometer.cpp
+            speedometer.h
+            win10_loading_progress.cpp
+            win10_loading_progress.h)
 			
 add_executable(qpainter-drawings ${ALL_SRC} ${RES})
 
