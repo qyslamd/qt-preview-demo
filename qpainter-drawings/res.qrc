@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resource/zh_CN.qm</file>
+        <file>resource/zh_CN.ts</file>
+    </qresource>
+</RCC>
