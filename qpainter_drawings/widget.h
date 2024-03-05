@@ -1,10 +1,10 @@
-#ifndef WIDGET_H
-#define WIDGET_H
+#pragma once
 
 #include <QTabWidget>
 
 class Bagua;
 class BaguaRound;
+class OvalSealWidget;
 class Widget : public QTabWidget {
   Q_OBJECT
  public:
@@ -13,5 +13,5 @@ class Widget : public QTabWidget {
  private:
   Bagua *bagua_ = nullptr;
   BaguaRound *round_bagua_ = nullptr;
+  OvalSealWidget *oval_seal = nullptr;
 };
-#endif  // WIDGET_H
