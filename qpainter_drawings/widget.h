@@ -8,6 +8,13 @@ class OvalSealWidget;
 class HourglassWidget;
 class SpeedometerWidget;
 class Win10LoadingProgressWidget;
+class WaterProgressDemo;
+class NineBallProgress;
+class FourFishRotateProgress;
+namespace ball_stair_progress {
+class BallStairWidget;
+}
+class CplusplusWidget;
 class Widget : public QTabWidget {
   Q_OBJECT
  public:
@@ -20,4 +27,9 @@ class Widget : public QTabWidget {
   HourglassWidget* hourglass = nullptr;
   SpeedometerWidget* speedometer = nullptr;
   Win10LoadingProgressWidget* win10_loading = nullptr;
+  WaterProgressDemo* water_progress = nullptr;
+  NineBallProgress* nine_ball_progress = nullptr;
+  FourFishRotateProgress* four_fish_progress = nullptr;
+  ball_stair_progress::BallStairWidget* ball_stair_progress = nullptr;
+  CplusplusWidget* cplusplus_logo = nullptr;
 };

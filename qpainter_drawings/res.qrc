@@ -3,4 +3,8 @@
         <file>resource/zh_CN.qm</file>
         <file>resource/zh_CN.ts</file>
     </qresource>
+    <qresource prefix="/water_progress">
+        <file>resource/water_back.svg</file>
+        <file>resource/water_front.svg</file>
+    </qresource>
 </RCC>

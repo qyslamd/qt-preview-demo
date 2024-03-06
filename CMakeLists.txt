@@ -15,8 +15,8 @@ set(CMAKE_AUTOMOC ON)
 # Qt5 RCC
 set(CMAKE_AUTORCC ON)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Gui Widgets REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Widgets REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Gui Widgets Svg REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Widgets Svg REQUIRED)
 
 
 # *********************make a static libray of chrom tab style*****************
@@ -26,5 +26,6 @@ target_link_libraries(chromTabStyle PUBLIC Qt${QT_VERSION_MAJOR}::Widgets)
 
 
 add_subdirectory(qpainter_drawings)
+add_subdirectory(click_water_ripples)
 
 

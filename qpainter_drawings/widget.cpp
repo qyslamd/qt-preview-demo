@@ -6,10 +6,15 @@
 
 #include "bagua.h"
 #include "bagua_round.h"
-#include "hourglass.h"
+#include "cplusplus_logo.h"
 #include "oval_seal.h"
+#include "progress/ball_stair_progress.h"
+#include "progress/four_fish_progress.h"
+#include "progress/hourglass.h"
+#include "progress/nine_ball_progress.h"
+#include "progress/water_progress.h"
+#include "progress/win10_loading_progress.h"
 #include "speedometer.h"
-#include "win10_loading_progress.h"
 
 Widget::Widget(QWidget* parent)
     : QTabWidget(parent),
@@ -18,15 +23,25 @@ Widget::Widget(QWidget* parent)
       oval_seal(new OvalSealWidget(this)),
       hourglass(new HourglassWidget(this)),
       speedometer(new SpeedometerWidget(this)),
-      win10_loading(new Win10LoadingProgressWidget(this)) {
+      win10_loading(new Win10LoadingProgressWidget(this)),
+      water_progress(new WaterProgressDemo(this)),
+      nine_ball_progress(new NineBallProgress),
+      four_fish_progress(new FourFishRotateProgress(this)),
+      ball_stair_progress(new ball_stair_progress::BallStairWidget(this)),
+      cplusplus_logo(new CplusplusWidget(this)) {
   resize(1024, 768);
 
   this->tabBar()->setStyle(new TabBarStyle);
 
-  addTab(bagua_, "Polygon Bagua");
-  addTab(round_bagua_, "Round Bagua");
-  addTab(oval_seal, "Oval Seal");
+  addTab(win10_loading, "Win10 loading progress");
+  addTab(bagua_, "Polygon bagua");
+  addTab(round_bagua_, "Round bagua");
+  addTab(oval_seal, "Oval seal");
   addTab(hourglass, "Hourglass");
   addTab(speedometer, "Speedometer");
-  addTab(win10_loading, "Win10 Loading Progress");
+  addTab(water_progress, "Water progress");
+  addTab(nine_ball_progress, "Nine-ball progress");
+  addTab(four_fish_progress, "Four-fish progress");
+  addTab(ball_stair_progress, "Ball-stair progress");
+  addTab(cplusplus_logo, "Cplusplus logo");
 }
