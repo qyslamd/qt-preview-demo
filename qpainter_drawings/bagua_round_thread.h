@@ -1,13 +1,11 @@
 #pragma once
-#include <QOpenGLWidget>
+
 #include <QWidget>
 
-class RotateData;
-class QTimer;
-class BaguaRound : public QWidget {
+class BaguaRoundThread : public QWidget {
   Q_OBJECT
  public:
-  explicit BaguaRound(QWidget *parent = nullptr);
+  explicit BaguaRoundThread(QWidget *parent = nullptr);
 
  protected:
   void paintEvent(QPaintEvent *event) override;
@@ -35,7 +33,4 @@ class BaguaRound : public QWidget {
   void drawOneTwentyFourthSeperator(QPainter *painter, qreal radius1,
                                     qreal radius2);
   void drawQuarterSeperator(QPainter *painter, qreal radius1, qreal radius2);
-
- private:
-  RotateData *r_d_;
 };

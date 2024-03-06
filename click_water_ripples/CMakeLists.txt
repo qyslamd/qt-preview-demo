@@ -1,6 +1,10 @@
 set(ALL_SRC main.cpp
-click_water_ripple_widget.cpp
-click_water_ripple_widget.h)
+    widget.cpp
+    widget.h
+    click_water_ripple_widget.cpp
+    click_water_ripple_widget.h
+    click_ripple_listview.cpp
+    click_ripple_listview.h)
 
 add_executable(click_water_ripples ${ALL_SRC})
 

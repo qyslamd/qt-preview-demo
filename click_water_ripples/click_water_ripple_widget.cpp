@@ -52,9 +52,9 @@ void ClickWaterRipple::paintEvent(QPaintEvent *event) {
 
   painter.save();
   QLinearGradient linearGrad(rect.topLeft(), rect.bottomRight());
-  linearGrad.setColorAt(0, QColor("#7085b6"));
-  linearGrad.setColorAt(0.5, QColor("#87a7d9"));
-  linearGrad.setColorAt(1, QColor("#def3f8"));
+  linearGrad.setColorAt(0, QColor(0x7085b6));
+  linearGrad.setColorAt(0.5, QColor(0x87a7d9));
+  linearGrad.setColorAt(1, QColor(0xdef3f8));
   painter.fillPath(path, linearGrad);
   painter.restore();
 }

@@ -1,11 +1,11 @@
 #include <QApplication>
 #include <QWidget>
 
-#include "click_water_ripple_widget.h"
+#include "widget.h"
 
 int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
-  ClickWaterRipple w;
+  Widget w;
   w.show();
   return app.exec();
 }

@@ -1,4 +1,4 @@
-#include "bagua_round.h"
+#include "bagua_round_thread.h"
 
 #include <QConicalGradient>
 #include <QFileDialog>
@@ -9,7 +9,6 @@
 #include <QPushButton>
 #include <QStaticText>
 #include <QTimer>
-#include <QtDebug>
 #include <cmath>
 #include <iostream>
 
@@ -17,46 +16,11 @@ static auto constexpr angle_8_1 = 360.0 / 8.0;
 static auto constexpr angle_24_1 = 360.0 / 24.0;
 static auto constexpr angle_32_1 = 360.0 / 32.0;
 
-class RotateData {
- public:
-  RotateData() = default;
-  qreal fish_degree_{0};
-  qreal gua_degree_{0};
-  qreal _24_soloar_degree_{0};
-};
-
-BaguaRound::BaguaRound(QWidget *parent)
-    : QWidget(parent), r_d_(new RotateData) {
+BaguaRoundThread::BaguaRoundThread(QWidget *parent) : QWidget(parent) {
   resize(600, 600);
-
-  auto timer = new QTimer(this);
-  connect(timer, &QTimer::timeout, this, [this] {
-    r_d_->fish_degree_ -= 15;
-    r_d_->gua_degree_ += 15;
-    r_d_->_24_soloar_degree_ += 30;
-    update();
-  });
-  //  timer->start(30);
-
-  QPushButton *button = new QPushButton("save to Png", this);
-
-  connect(button, &QPushButton::clicked, this, [this] {
-    QString fileName = QFileDialog::getSaveFileName(
-        this, tr("Save File"), "", tr("Images (*.png *.xpm *.jpg)"));
-
-    if (fileName.isEmpty()) {
-      return;
-    }
-
-    QPixmap pix(1920, 1920);
-    getBaguaPixmap(pix);
-    if (!pix.save(fileName, "PNG", 100)) {
-      std::cerr << "Save PNG file failed!" << std::endl;
-    }
-  });
 }
 
-void BaguaRound::paintEvent(QPaintEvent *event) {
+void BaguaRoundThread::paintEvent(QPaintEvent *event) {
   QWidget::paintEvent(event);
 
   QPainter painter(this);
@@ -69,7 +33,7 @@ void BaguaRound::paintEvent(QPaintEvent *event) {
   return;
 }
 
-void BaguaRound::getBaguaPixmap(QPixmap &pixmap) {
+void BaguaRoundThread::getBaguaPixmap(QPixmap &pixmap) {
   if (pixmap.width() == 0 || pixmap.height() == 0) {
     return;
   }
@@ -114,7 +78,7 @@ void BaguaRound::getBaguaPixmap(QPixmap &pixmap) {
   drawQuarterSeperator(&painter, radius_3, radius_4);
 }
 
-void BaguaRound::drawBackground(QPainter *painter, qreal radius) {
+void BaguaRoundThread::drawBackground(QPainter *painter, qreal radius) {
   QConicalGradient coneGradient(0, 0, 180.0);
   coneGradient.setColorAt(0.00, QColor(35, 40, 3, 255));
   coneGradient.setColorAt(0.160, QColor(136, 106, 22, 255));
@@ -139,9 +103,8 @@ void BaguaRound::drawBackground(QPainter *painter, qreal radius) {
   painter->restore();
 }
 
-void BaguaRound::drawYinYangFish(QPainter *painter, qreal radius) {
+void BaguaRoundThread::drawYinYangFish(QPainter *painter, qreal radius) {
   painter->save();
-  painter->rotate(r_d_->fish_degree_);
 
   auto diameter = 2.0 * radius;
   painter->save();
@@ -180,9 +143,8 @@ void BaguaRound::drawYinYangFish(QPainter *painter, qreal radius) {
   painter->restore();
 }
 
-void BaguaRound::drawGua(QPainter *painter, qreal radius) {
+void BaguaRoundThread::drawGua(QPainter *painter, qreal radius) {
   painter->save();
-  painter->rotate(r_d_->gua_degree_);
 
   auto penWidth = 4.0;
   static auto spacerAngle = angle_8_1 / 8.0;
@@ -344,8 +306,8 @@ void BaguaRound::drawGua(QPainter *painter, qreal radius) {
   painter->restore();
 }
 
-void BaguaRound::drawGuaCharacter(QPainter *painter, qreal radius_outer,
-                                  qreal radius_inner) {
+void BaguaRoundThread::drawGuaCharacter(QPainter *painter, qreal radius_outer,
+                                        qreal radius_inner) {
   auto height = radius_outer - radius_inner;
   auto fontSizePixel = height * 3.0 / 5.0;
   auto drawer = [=](qreal degree, const QString &character,
@@ -375,19 +337,17 @@ void BaguaRound::drawGuaCharacter(QPainter *painter, qreal radius_outer,
   drawer(angle_8_1 * 7.0, tr("Xun"), QColor(0xFF6347));
 }
 
-void BaguaRound::drawCircle(QPainter *painter, qreal radius,
-                            const QColor &color, qreal penWidth) {
+void BaguaRoundThread::drawCircle(QPainter *painter, qreal radius,
+                                  const QColor &color, qreal penWidth) {
   painter->save();
   painter->setPen(QPen(QBrush(color), penWidth));
   painter->drawEllipse(QRectF(-radius, -radius, 2.0 * radius, 2.0 * radius));
   painter->restore();
 }
 
-void BaguaRound::draw24SolarTerms(QPainter *painter, qreal radius_outer,
-                                  qreal radius_inner) {
+void BaguaRoundThread::draw24SolarTerms(QPainter *painter, qreal radius_outer,
+                                        qreal radius_inner) {
   painter->save();
-  painter->rotate(r_d_->_24_soloar_degree_);
-
   auto height = radius_outer - radius_inner;
   auto fontSizePixel = height * 2.0 / 4.0;
 
@@ -434,8 +394,8 @@ void BaguaRound::draw24SolarTerms(QPainter *painter, qreal radius_outer,
   painter->restore();
 }
 
-void BaguaRound::drawScale(QPainter *painter, qreal radius_outer,
-                           qreal radius_inner) {
+void BaguaRoundThread::drawScale(QPainter *painter, qreal radius_outer,
+                                 qreal radius_inner) {
   static const auto _10Degree = 360 / 36.0;
   auto longerLength = (radius_outer - radius_inner) / 2.0;
   auto shorterLength = longerLength / 2.0;
@@ -484,8 +444,8 @@ void BaguaRound::drawScale(QPainter *painter, qreal radius_outer,
   }
 }
 
-void BaguaRound::drawTianGanDiZhi(QPainter *painter, qreal radius_outer,
-                                  qreal radius_inner) {
+void BaguaRoundThread::drawTianGanDiZhi(QPainter *painter, qreal radius_outer,
+                                        qreal radius_inner) {
   auto height = radius_outer - radius_inner;
   auto fontSizePixel = height * 2.0 / 4.0;
 
@@ -532,8 +492,9 @@ void BaguaRound::drawTianGanDiZhi(QPainter *painter, qreal radius_outer,
   drawer(angle_24_1 * 23.0, tr("Bing"), QColor(127, 255, 0));
 }
 
-void BaguaRound::drawDiZhiWith5Elements(QPainter *painter, qreal radius_outer,
-                                        qreal radius_inner) {
+void BaguaRoundThread::drawDiZhiWith5Elements(QPainter *painter,
+                                              qreal radius_outer,
+                                              qreal radius_inner) {
   auto height = radius_outer - radius_inner;
   auto fontSizePixel = height * 2.0 / 4.0;
 
@@ -568,8 +529,9 @@ void BaguaRound::drawDiZhiWith5Elements(QPainter *painter, qreal radius_outer,
   drawer(angle_8_1 * 7.0 + angle_32_1, tr("SiShui"));
 }
 
-void BaguaRound::drawTianGanWith5Elements(QPainter *painter, qreal radius_outer,
-                                          qreal radius_inner) {
+void BaguaRoundThread::drawTianGanWith5Elements(QPainter *painter,
+                                                qreal radius_outer,
+                                                qreal radius_inner) {
   auto height = radius_outer - radius_inner;
   auto fontSizePixel = height * 2.0 / 4.0;
 
@@ -600,8 +562,8 @@ void BaguaRound::drawTianGanWith5Elements(QPainter *painter, qreal radius_outer,
   drawer(angle_8_1 * 7.0, tr("XunFengMu"));
 }
 
-void BaguaRound::drawOneEighthSeperator(QPainter *painter, qreal radius1,
-                                        qreal radius2) {
+void BaguaRoundThread::drawOneEighthSeperator(QPainter *painter, qreal radius1,
+                                              qreal radius2) {
   static const auto PI = std::acos(-1);
   static auto angle = 2 * PI / 8.0 / 2.0;  // 弧度
   static auto absSinAngle = std::abs(std::sin(angle));
@@ -629,8 +591,9 @@ void BaguaRound::drawOneEighthSeperator(QPainter *painter, qreal radius1,
   painter->restore();
 }
 
-void BaguaRound::drawOneTwentyFourthSeperator(QPainter *painter, qreal radius1,
-                                              qreal radius2) {
+void BaguaRoundThread::drawOneTwentyFourthSeperator(QPainter *painter,
+                                                    qreal radius1,
+                                                    qreal radius2) {
   static const auto PI = std::acos(-1);
   static auto angle = 2 * PI / 24.0 / 2.0;  // 弧度
   static auto absSinAngle = std::abs(std::sin(angle));
@@ -665,8 +628,8 @@ void BaguaRound::drawOneTwentyFourthSeperator(QPainter *painter, qreal radius1,
   painter->restore();
 }
 
-void BaguaRound::drawQuarterSeperator(QPainter *painter, qreal radius1,
-                                      qreal radius2) {
+void BaguaRoundThread::drawQuarterSeperator(QPainter *painter, qreal radius1,
+                                            qreal radius2) {
   static const auto PI = std::acos(-1);
   static auto angle = 2 * PI / 4.0 / 2.0;  // 弧度
   static auto absSinAngle = std::abs(std::sin(angle));

@@ -6,6 +6,8 @@ set(ALL_SRC main.cpp
     bagua.h
     bagua_round.cpp
     bagua_round.h
+    bagua_round_thread.cpp
+    bagua_round_thread.h
     oval_seal.cpp
     oval_seal.h
     progress/hourglass.cpp
@@ -14,6 +16,8 @@ set(ALL_SRC main.cpp
     speedometer.h
     cplusplus_logo.cpp
     cplusplus_logo.h
+    wifi_logo.cpp
+    wifi_logo.h
     progress/win10_loading_progress.cpp
     progress/win10_loading_progress.h
     progress/water_progress.cpp
