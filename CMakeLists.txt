@@ -27,5 +27,6 @@ target_link_libraries(chromTabStyle PUBLIC Qt${QT_VERSION_MAJOR}::Widgets)
 
 add_subdirectory(qpainter_drawings)
 add_subdirectory(click_water_ripples)
+add_subdirectory(embed_window_qt)
 
 

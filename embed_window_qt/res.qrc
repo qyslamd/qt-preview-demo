@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resource/imgs/china_96px.png</file>
+        <file>resource/imgs/puzzle_96px.png</file>
+        <file>resource/imgs/test_tube_96px.png</file>
+        <file>resource/svg/nima.svg</file>
+        <file>resource/imgs/broom_96px.png</file>
+        <file>resource/imgs/eject_96px.png</file>
+        <file>resource/imgs/shutdown_96px.png</file>
+    </qresource>
+</RCC>

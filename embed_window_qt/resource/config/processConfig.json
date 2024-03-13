@@ -1,0 +1,28 @@
+{
+	"process":[{
+		"processName":"b.exe",
+		"processPath":"C:/ni ma/b.exe",
+		"processArguments":[
+		"a",
+		"b",
+		""
+		],
+		"windowTitle":"\"xxx 1 3245\"",
+		"className":"",
+		"waitTime":10,
+		"killAndStart":true
+	},
+	{
+		"processName":"a.exe",
+		"processPath":"C:/ni ma/a.exe",
+		"processArguments":[
+		"a",
+		"b",
+		""
+		],
+		"windowTitle":"\"xxx 1 3245\"",
+		"className":"",
+		"waitTime":5,
+		"killAndStart":true
+	}]
+}
