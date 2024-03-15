@@ -1,0 +1,38 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg dth="300px" height="175px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<style type="text/css" >
+.line1 {
+     stroke-dasharray: 340;
+     stroke-dashoffset: 40;
+     animation: dash 1.5s linear alternate infinite;
+}
+.line2 {
+     stroke-dasharray: 320;
+     stroke-dashoffset: 320;
+     animation: dash2 1.5s linear alternate infinite;
+}
+@keyframes dash {
+    from {
+       stroke-dashoffset: 360;
+    }
+    to {
+       stroke-dashoffset: 40;
+    }
+}
+@keyframes dash2 {
+    from {
+       stroke-dashoffset: 280;
+    }
+    to {
+       stroke-dashoffset: -40;
+    }
+}
+</style>
+
+<path fill="transparent" stroke="#000000" stroke-width="4" d="M10 80 Q 77.5 10, 145 80 T 280 80" class="path"></path>
+<path fill="transparent" stroke="#FF2851" stroke-width="4" d="M10 80 Q 77.5 10, 145 80 T 280 80" class="line2"></path>
+<path fill="transparent" stroke="#000000" stroke-width="4" d="M10 80 Q 77.5 10, 145 80 T 280 80" class="line1"></path>
+</svg>
