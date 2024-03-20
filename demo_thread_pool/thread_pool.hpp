@@ -27,7 +27,7 @@ private:
 
   private:
     ThreadPool *pool;
-    int id;
+    [[maybe_unused]] int id;
   };
 
 public:
@@ -52,7 +52,7 @@ public:
   ///
   void shutdown() {
     shutdown_flag = true;
-    conditional_lock.notify_all(); // 通知，唤醒所有线程
+    conditional_lock.notify_all(); // Notification, wake up all threads
     for (decltype(threads.size()) i = 0; i < threads.size(); i++) {
       if (threads.at(i).joinable()) {
         threads.at(i).join();
@@ -84,11 +84,11 @@ public:
   }
 
 private:
-  bool shutdown_flag; // 线程池是否关闭
+  bool shutdown_flag; // Identifies whether the thread pool is closed
   TaskQueue<std::function<void()>> queue;
-  std::vector<std::thread> threads; // 工作线程队列
-  std::mutex conditional_mutex;     // 线程休眠互斥锁
-  std::condition_variable
-      conditional_lock; // 线程环境锁，可以让线程处于休眠或者唤醒状态
+  std::vector<std::thread> threads;         // Work task queue
+  std::mutex conditional_mutex;             // Thread sleep mutex lock
+  std::condition_variable conditional_lock; // Thread environment lock,Threads
+                                            // can be put to sleep or awake
 };
 } // namespace demo_thread_pool

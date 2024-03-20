@@ -19,7 +19,7 @@ public:
   /// \return
   ///
   bool empty() {
-    std::unique_lock<std::mutex> lock(mutex); // 加锁，防止被修改
+    std::unique_lock<std::mutex> lock(mutex);
     return queue.empty();
   }
 
@@ -28,7 +28,7 @@ public:
   /// \return
   ///
   size_t size() {
-    std::unique_lock<std::mutex> lock(mutex); // 加锁，防止被修改
+    std::unique_lock<std::mutex> lock(mutex);
     return queue.size();
   }
 
@@ -37,18 +37,18 @@ public:
   /// \param t
   ///
   void enqueue(T &t) {
-    std::unique_lock<std::mutex> lock(mutex); // 加锁，防止被修改
+    std::unique_lock<std::mutex> lock(mutex);
     queue.emplace(t);
   }
 
   bool dequeue(T &t) {
-    std::unique_lock<std::mutex> lock(mutex); // 加锁，防止被修改
+    std::unique_lock<std::mutex> lock(mutex);
     if (queue.empty()) {
       return false;
     }
-    t = std::move(queue.front()); // 取出队首元素，并进行右值引用
+    t = std::move(queue.front());
 
-    queue.pop(); // 弹出队中第一个元素
+    queue.pop();
     return true;
   }
 
