@@ -8,10 +8,11 @@
 #include <mutex>
 #include <queue>
 namespace demo_thread_pool {
-template <typename T> class TaskQueue {
-public:
+template <typename T>
+class TaskQueue {
+ public:
   TaskQueue() = default;
-  TaskQueue(TaskQueue &&other) {}
+  TaskQueue(TaskQueue&&) {}
   ~TaskQueue() {}
 
   ///
@@ -36,12 +37,12 @@ public:
   /// \brief enqueue
   /// \param t
   ///
-  void enqueue(T &t) {
+  void enqueue(T& t) {
     std::unique_lock<std::mutex> lock(mutex);
     queue.emplace(t);
   }
 
-  bool dequeue(T &t) {
+  bool dequeue(T& t) {
     std::unique_lock<std::mutex> lock(mutex);
     if (queue.empty()) {
       return false;
@@ -52,8 +53,8 @@ public:
     return true;
   }
 
-private:
+ private:
   std::queue<T> queue;
   std::mutex mutex;
 };
-} // namespace demo_thread_pool
+}  // namespace demo_thread_pool

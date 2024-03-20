@@ -25,7 +25,8 @@ endforeach(boost_lib)
 set(ALL_SRCS main.cpp
             process_usage.hpp
         json_usage.hpp
-    filesystem_usage.hpp)
+    filesystem_usage.hpp
+asio_usage.hpp)
 
 set(Target_Name boost_test)
 add_executable(${Target_Name} ${ALL_SRCS})
