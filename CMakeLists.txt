@@ -30,5 +30,6 @@ add_subdirectory(click_water_ripples)
 add_subdirectory(embed_window_qt)
 add_subdirectory(qprocess_usage)
 add_subdirectory(boost_test)
+add_subdirectory(demo_thread_pool)
 
 
